@@ -11,9 +11,10 @@ public class Files {
 
     /**
      * Main method. Creates instance of Files and calls runFileTests.
+     *
      * @param args args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Files files = new Files();
         files.runFileTests();
     }
@@ -21,7 +22,7 @@ public class Files {
     /**
      * Runs I/O methods in this class.
      */
-    private void runFileTests(){
+    private void runFileTests() {
         readFromFile();
         writeToFile();
         copyFile();
@@ -36,8 +37,8 @@ public class Files {
         Scanner askUser = new Scanner(System.in);
 
         boolean fileReadCorrectly = false;
-        do{
-            try{
+        do {
+            try {
                 System.out.println("Enter the name of the file you want to read.");
                 String fileName = askUser.nextLine() + ".txt";
 
@@ -49,7 +50,7 @@ public class Files {
                 String nextFileLine = bufferedReader.readLine();
 
                 // prints every line in file to console
-                while (nextFileLine != null){
+                while (nextFileLine != null) {
                     System.out.println(nextFileLine);
                     nextFileLine = bufferedReader.readLine();
                 }
@@ -59,7 +60,7 @@ public class Files {
             } catch (IOException e) {
                 System.out.println("That file doesn't exist.");
             }
-         } while (!fileReadCorrectly);
+        } while (!fileReadCorrectly);
     }
 
     /**
@@ -127,7 +128,7 @@ public class Files {
                 String nextFileLine = bufferedReader.readLine();
 
                 // goes through entire file until end is reached
-                while (nextFileLine != null){
+                while (nextFileLine != null) {
                     printWriter.println(nextFileLine);
                     nextFileLine = bufferedReader.readLine();
                 }
@@ -142,7 +143,10 @@ public class Files {
 
     }
 
-    private void decipherFile(){
+    /**
+     * Deciphers mystery.txt.
+     */
+    private void decipherFile() {
 
         // setup for file writer
         FileOutputStream outputStream;
@@ -161,7 +165,7 @@ public class Files {
             String nextFileLine = bufferedReader.readLine();
 
             // goes through entire file until end is reached
-            while (nextFileLine != null){
+            while (nextFileLine != null) {
                 String decipheredString = cipherDecipherString(nextFileLine);
                 System.out.println(decipheredString);
                 printWriter.println(decipheredString);
@@ -181,12 +185,11 @@ public class Files {
      * @param text A String containing text that is to be enciphered or deciphered
      * @return A new String containing the result, e.g. the en/deciphered version of the String provided as an input
      */
-    private static String cipherDecipherString(String text)
-    {
+    private static String cipherDecipherString(String text) {
         // declare variables we need
         int i, j;
         boolean found = false;
-        String temp="" ; // empty String to hold converted text
+        String temp = ""; // empty String to hold converted text
 
         for (i = 0; i < text.length(); i++) // look at every character in text
         {
@@ -195,14 +198,13 @@ public class Files {
             {
                 found = true; // yes!
                 temp = temp + crypt2.charAt(j); // add the cipher character to temp
-            }
-            else if ((j = crypt2.indexOf(text.charAt(i))) > -1) // and so on
+            } else if ((j = crypt2.indexOf(text.charAt(i))) > -1) // and so on
             {
                 found = true;
                 temp = temp + crypt1.charAt(j);
             }
 
-            if (! found) // to deal with cases where char is NOT in crypt2 or 2
+            if (!found) // to deal with cases where char is NOT in crypt2 or 2
             {
                 temp = temp + text.charAt(i); // just copy across the character
             }
@@ -210,14 +212,17 @@ public class Files {
         return temp;
     }
 
-    private void calculateScores(){
+    /**
+     * Calculates final scores from details.txt, prints in console, and writes to "final scores.txt".
+     */
+    private void calculateScores() {
         // setup for file writer
         FileOutputStream outputStream;
         PrintWriter printWriter;
 
         boolean fileReadCorrectly = false;
-        do{
-            try{
+        do {
+            try {
                 // setting up file reader
                 FileReader fileReader = new FileReader("src/details.txt");
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -233,15 +238,17 @@ public class Files {
                 String firstName;
                 String lastName;
                 String scoreStatement;
-                while (nextFileLine != null){
+
+                while (nextFileLine != null) {
                     list = nextFileLine.split(" ");
                     firstName = list[0];
                     lastName = list[1];
                     int count = 0;
                     int total = 0;
                     int score;
-                    for (int i = 2; i < list.length; i++){
-                        count ++;
+
+                    for (int i = 2; i < list.length; i++) {
+                        count++;
                         score = Integer.parseInt(list[i]);
                         total += score;
                     }
@@ -249,6 +256,7 @@ public class Files {
                     //noinspection IntegerDivisionInFloatingPointContext
                     float average = total / count;
                     scoreStatement = lastName + ", " + firstName + ": Final score is %.2f";
+
                     System.out.printf(("\n" + scoreStatement), average);
                     printWriter.printf(("\n" + scoreStatement), average);
                     nextFileLine = bufferedReader.readLine();
