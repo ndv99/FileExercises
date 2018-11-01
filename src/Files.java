@@ -22,10 +22,11 @@ public class Files {
      * Runs I/O methods in this class.
      */
     private void runFileTests(){
-//        readFromFile();
-//        writeToFile();
-//        copyFile();
+        readFromFile();
+        writeToFile();
+        copyFile();
         decipherFile();
+        calculateScores();
     }
 
     /**
@@ -152,7 +153,7 @@ public class Files {
             FileReader fileReader = new FileReader("src/mystery.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            // output file is set deciphered.txt
+            // output file is set to deciphered.txt
             outputStream = new FileOutputStream("deciphered.txt");
             printWriter = new PrintWriter(outputStream);
 
@@ -207,5 +208,58 @@ public class Files {
             }
         }
         return temp;
+    }
+
+    private void calculateScores(){
+        // setup for file writer
+        FileOutputStream outputStream;
+        PrintWriter printWriter;
+
+        boolean fileReadCorrectly = false;
+        do{
+            try{
+                // setting up file reader
+                FileReader fileReader = new FileReader("src/details.txt");
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                // output file is set to deciphered.txt
+                outputStream = new FileOutputStream("final scores.txt");
+                printWriter = new PrintWriter(outputStream);
+
+                // grabs first line from file
+                String nextFileLine = bufferedReader.readLine();
+
+                String[] list;
+                String firstName;
+                String lastName;
+                String scoreStatement;
+                while (nextFileLine != null){
+                    list = nextFileLine.split(" ");
+                    firstName = list[0];
+                    lastName = list[1];
+                    int count = 0;
+                    int total = 0;
+                    int score;
+                    for (int i = 2; i < list.length; i++){
+                        count ++;
+                        score = Integer.parseInt(list[i]);
+                        total += score;
+                    }
+
+                    //noinspection IntegerDivisionInFloatingPointContext
+                    float average = total / count;
+                    scoreStatement = lastName + ", " + firstName + ": Final score is %.2f";
+                    System.out.printf(("\n" + scoreStatement), average);
+                    printWriter.printf(("\n" + scoreStatement), average);
+                    nextFileLine = bufferedReader.readLine();
+                }
+
+                bufferedReader.close();
+                printWriter.close();
+                fileReadCorrectly = true;
+            } catch (IOException e) {
+                System.out.println("That file doesn't exist.");
+            }
+        } while (!fileReadCorrectly);
     }
 }
