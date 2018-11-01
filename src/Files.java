@@ -39,4 +39,12 @@ public class Files {
          } while (!fileReadCorrectly);
     }
 
+    public void writetoFile() {
+        Scanner userWrite = new Scanner(System.in);
+    }
+
+    public void copyFile() {
+
+    }
+
 }
