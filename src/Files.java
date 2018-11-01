@@ -10,19 +10,9 @@ public class Files {
     private static final String crypt2 = "lmnoqstuvwxyz";
 
     /**
-     * Main method. Creates instance of Files and calls runFileTests.
-     *
-     * @param args args
-     */
-    public static void main(String[] args) {
-        Files files = new Files();
-        files.runFileTests();
-    }
-
-    /**
      * Runs I/O methods in this class.
      */
-    private void runFileTests() {
+    void runFileTests() {
         readFromFile();
         writeToFile();
         copyFile();
@@ -33,7 +23,7 @@ public class Files {
     /**
      * Reads from a file specified by the user and prints the content of it.
      */
-    private void readFromFile() {
+    void readFromFile() {
         Scanner askUser = new Scanner(System.in);
 
         boolean fileReadCorrectly = false;
@@ -66,7 +56,7 @@ public class Files {
     /**
      * Writes user input to "out.txt".
      */
-    private void writeToFile() {
+    void writeToFile() {
         Scanner userWrite = new Scanner(System.in);
 
         // setting up file writer
@@ -99,7 +89,7 @@ public class Files {
     /**
      * Copies the content of one file to another, the names of which are user-specified.
      */
-    private void copyFile() {
+    void copyFile() {
 
         Scanner askUser = new Scanner(System.in);
         boolean noErrors = false;
@@ -146,7 +136,7 @@ public class Files {
     /**
      * Deciphers mystery.txt.
      */
-    private void decipherFile() {
+    void decipherFile() {
 
         // setup for file writer
         FileOutputStream outputStream;
@@ -215,7 +205,7 @@ public class Files {
     /**
      * Calculates final scores from details.txt, prints in console, and writes to "final scores.txt".
      */
-    private void calculateScores() {
+    void calculateScores() {
         // setup for file writer
         FileOutputStream outputStream;
         PrintWriter printWriter;
