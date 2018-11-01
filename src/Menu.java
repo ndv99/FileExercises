@@ -31,6 +31,7 @@ public class Menu {
         System.out.println("4: Calculate scores from details.txt");
         System.out.println("5: Copy a file");
         System.out.println("6: Run all");
+        System.out.println("7: Check if a file is readable");
         System.out.println("0: Exit");
     }
 
@@ -41,7 +42,8 @@ public class Menu {
      * 3 - Decipher mystery.txt
      * 4 - Calculate scores from details.txt
      * 5 - Copy a file
-     * 6 - Run all the commands]
+     * 6 - Run all the commands
+     * 7 - Check if a file is readable
      * 0 - Exit program
      */
     private void processChoice() {
@@ -68,6 +70,17 @@ public class Menu {
                     break;
                 case "6": // user chooses 6
                     files.runFileTests();
+                    break;
+                case "7": // user chooses 7
+                    Scanner userInput = new Scanner(System.in);
+                    System.out.println("Enter the file name");
+                    String fileName = userInput.nextLine() + ".txt";
+                    boolean readable = files.checkFile(fileName);
+                    if (!readable){
+                        System.out.println("That file is not readable or does not exist.");
+                    } else {
+                        System.out.println("That file exists and is readable.");
+                    }
                     break;
                 case "0": // user chooses 0
                     finished = true; // Big while loop that this is in will now break.

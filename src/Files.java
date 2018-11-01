@@ -260,4 +260,32 @@ public class Files {
             }
         } while (!fileReadCorrectly);
     }
+
+    boolean checkFile(String fileName){
+        /* You *could* use the Java "File" class, but if you're only returning one boolean, it doesn't matter if it
+        exists but isn't readable or if it just doesn't exist, the boolean will be the same. So I might as well use a
+        try/catch block to see if the file can be read from, regardless of whether or not it actually exists.
+         */
+        boolean fileWorks;
+        try {
+
+            // setting up file reader
+            FileReader fileReader = new FileReader("src/" + fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            // grabs first line from file
+            String nextFileLine = bufferedReader.readLine();
+
+            // reads every line
+            while (nextFileLine != null) {
+                nextFileLine = bufferedReader.readLine();
+            }
+
+            bufferedReader.close();
+            fileWorks = true;
+        } catch (IOException e) {
+            fileWorks = false;
+        }
+        return fileWorks;
+    }
 }
