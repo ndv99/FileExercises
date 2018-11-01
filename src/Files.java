@@ -6,6 +6,9 @@ import java.io.*;
  */
 public class Files {
 
+    private static final String crypt1 = "cipherabdfgjk";
+    private static final String crypt2 = "lmnoqstuvwxyz";
+
     /**
      * Main method. Creates instance of Files and calls runFileTests.
      * @param args args
@@ -19,9 +22,10 @@ public class Files {
      * Runs I/O methods in this class.
      */
     private void runFileTests(){
-        readFromFile();
-        writeToFile();
-        copyFile();
+//        readFromFile();
+//        writeToFile();
+//        copyFile();
+        decipherFile();
     }
 
     /**
@@ -137,4 +141,71 @@ public class Files {
 
     }
 
+    private void decipherFile(){
+
+        // setup for file writer
+        FileOutputStream outputStream;
+        PrintWriter printWriter;
+
+        try {
+            // sets up reader from mystery.txt
+            FileReader fileReader = new FileReader("src/mystery.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            // output file is set deciphered.txt
+            outputStream = new FileOutputStream("deciphered.txt");
+            printWriter = new PrintWriter(outputStream);
+
+            // grabs first line from input file
+            String nextFileLine = bufferedReader.readLine();
+
+            // goes through entire file until end is reached
+            while (nextFileLine != null){
+                String decipheredString = cipherDecipherString(nextFileLine);
+                System.out.println(decipheredString);
+                printWriter.println(decipheredString);
+                nextFileLine = bufferedReader.readLine();
+            }
+
+            bufferedReader.close();
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.println("Something has gone wrong!");
+        }
+    }
+
+    /**
+     * Method to encipher and decipher a given String using parallel arrays (crypt1 & crypt2)
+     *
+     * @param text A String containing text that is to be enciphered or deciphered
+     * @return A new String containing the result, e.g. the en/deciphered version of the String provided as an input
+     */
+    private static String cipherDecipherString(String text)
+    {
+        // declare variables we need
+        int i, j;
+        boolean found = false;
+        String temp="" ; // empty String to hold converted text
+
+        for (i = 0; i < text.length(); i++) // look at every character in text
+        {
+            found = false;
+            if ((j = crypt1.indexOf(text.charAt(i))) > -1) // is char in crypt1?
+            {
+                found = true; // yes!
+                temp = temp + crypt2.charAt(j); // add the cipher character to temp
+            }
+            else if ((j = crypt2.indexOf(text.charAt(i))) > -1) // and so on
+            {
+                found = true;
+                temp = temp + crypt1.charAt(j);
+            }
+
+            if (! found) // to deal with cases where char is NOT in crypt2 or 2
+            {
+                temp = temp + text.charAt(i); // just copy across the character
+            }
+        }
+        return temp;
+    }
 }
