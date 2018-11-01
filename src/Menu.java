@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 /**
  * Contains methods to create a menu with options to run methods in Files.java.
  *
@@ -9,12 +10,20 @@ public class Menu {
 
     private Files files = new Files();
 
-    public static void main(String[] args){
+    /**
+     * Main method.
+     *
+     * @param args args
+     */
+    public static void main(String[] args) {
         Menu menu = new Menu();
         menu.processChoice();
     }
 
-    private void displayMenu(){
+    /**
+     * Displays menu in terminal.
+     */
+    private void displayMenu() {
         System.out.println("\nPlease select one of the following options:");
         System.out.println("\n1: Read from a file");
         System.out.println("2: Write to a file");
@@ -25,35 +34,45 @@ public class Menu {
         System.out.println("0: Exit");
     }
 
-    private void processChoice(){
+    /**
+     * Processes the user's input from the menu. Options are:
+     * 1 - Read from file
+     * 2 - Write to a file
+     * 3 - Decipher mystery.txt
+     * 4 - Calculate scores from details.txt
+     * 5 - Copy a file
+     * 6 - Run all the commands]
+     * 0 - Exit program
+     */
+    private void processChoice() {
         boolean finished = false; // set to true when the user wants to exit to break the loop
         Scanner choiceScanner = new Scanner(System.in);
         while (!finished) { // keeps going while the user hasn't chosen to exit
             displayMenu();
             String userChoice = choiceScanner.nextLine();
-            switch (userChoice){
-                case "1":
+            switch (userChoice) {
+                case "1": // user chooses 1
                     files.readFromFile();
                     break;
-                case "2":
+                case "2": // user chooses 2
                     files.writeToFile();
                     break;
-                case "3":
+                case "3": // user chooses 3
                     files.decipherFile();
                     break;
-                case "4":
+                case "4": // user chooses 4
                     files.calculateScores();
                     break;
-                case "5":
+                case "5": // user chooses 5
                     files.copyFile();
                     break;
-                case "6":
+                case "6": // user chooses 6
                     files.runFileTests();
                     break;
-                case "0":
+                case "0": // user chooses 0
                     finished = true; // Big while loop that this is in will now break.
                     break;
-                default:
+                default: // user enters invalid input
                     System.out.println("That input was invalid, please try again.");
                     break;
             }
