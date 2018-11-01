@@ -9,10 +9,10 @@ public class Files {
     }
 
     public void runFileTests(){
-        writeToFile();
+        copyFile();
     }
 
-    public void askForFile() {
+    public void readFromFile() {
         Scanner askUser = new Scanner(System.in);
 
         boolean fileReadCorrectly = false;
@@ -66,6 +66,38 @@ public class Files {
     }
 
     public void copyFile() {
+        Scanner askUser = new Scanner(System.in);
+        boolean noErrors = false;
+        FileOutputStream outputStream;
+        PrintWriter printWriter = null;
+        do {
+            try {
+                System.out.println("Enter the name of the file you want to copy.");
+                String sourceFileName = askUser.nextLine() + ".txt";
+
+                FileReader fileReader = new FileReader("src/" + sourceFileName);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                System.out.println("Enter the name of the file you want to copy to.");
+                String destinationFileName = askUser.nextLine() + ".txt";
+
+                outputStream = new FileOutputStream(destinationFileName);
+                printWriter = new PrintWriter(outputStream);
+
+                String nextFileLine = bufferedReader.readLine();
+
+                while (nextFileLine != null){
+                    printWriter.println(nextFileLine);
+                    nextFileLine = bufferedReader.readLine();
+                }
+
+                noErrors = true;
+                bufferedReader.close();
+                printWriter.close();
+            } catch (IOException e) {
+                System.out.println("Something has gone wrong! Please try again.");
+            }
+        } while (!noErrors);
 
     }
 
