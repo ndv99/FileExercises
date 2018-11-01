@@ -13,14 +13,14 @@ public class Files {
     }
 
     public void askForFile() {
-        String fileName = ".txt";
         Scanner askUser = new Scanner(System.in);
 
-        System.out.println("Enter the name of the file you want to read.");
-        fileName = askUser.nextLine() + fileName;
         boolean fileReadCorrectly = false;
         do{
             try{
+                System.out.println("Enter the name of the file you want to read.");
+                String fileName = askUser.nextLine() + ".txt";
+
                 FileReader fileReader = new FileReader("src/" + fileName);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
