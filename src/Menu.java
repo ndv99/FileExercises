@@ -32,6 +32,7 @@ public class Menu {
         System.out.println("5: Copy a file");
         System.out.println("6: Run all");
         System.out.println("7: Check if a file is readable");
+        System.out.println("8: Write a 2D array to out.txt");
         System.out.println("0: Exit");
     }
 
@@ -44,6 +45,7 @@ public class Menu {
      * 5 - Copy a file
      * 6 - Run all the commands
      * 7 - Check if a file is readable
+     * 8 - Write a 2D array to out.txt
      * 0 - Exit program
      */
     private void processChoice() {
@@ -76,11 +78,14 @@ public class Menu {
                     System.out.println("Enter the file name");
                     String fileName = userInput.nextLine() + ".txt";
                     boolean readable = files.checkFile(fileName);
-                    if (!readable){
+                    if (!readable) {
                         System.out.println("That file is not readable or does not exist.");
                     } else {
                         System.out.println("That file exists and is readable.");
                     }
+                    break;
+                case "8":
+                    files.write2DArray();
                     break;
                 case "0": // user chooses 0
                     finished = true; // Big while loop that this is in will now break.

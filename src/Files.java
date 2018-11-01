@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.*;
 
@@ -261,7 +262,13 @@ public class Files {
         } while (!fileReadCorrectly);
     }
 
-    boolean checkFile(String fileName){
+    /**
+     * Checks if a file is readable.
+     *
+     * @param fileName name of the file to be checked
+     * @return fileWorks - boolean of true or false; true if file is readable, false if not.
+     */
+    boolean checkFile(String fileName) {
         /* You *could* use the Java "File" class, but if you're only returning one boolean, it doesn't matter if it
         exists but isn't readable or if it just doesn't exist, the boolean will be the same. So I might as well use a
         try/catch block to see if the file can be read from, regardless of whether or not it actually exists.
@@ -288,4 +295,40 @@ public class Files {
         }
         return fileWorks;
     }
+
+    /**
+     * Writes a 2D array to out.txt such that each internal array is printed on one line.
+     */
+    void write2DArray() {
+        int[][] a2DArray = new int[][]{
+                {1, 0, 8, 0, 0, 0, 0, 0, 0, 0},
+                {0, 7, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 9, 0, 0, 5, 0, 0, 0, 0},
+                {0, 0, 0, 0, 8, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 2, 0, 0, 0}
+        };
+
+        // setting up file writer
+        FileOutputStream outputStream;
+        PrintWriter printWriter = null;
+
+        try {
+            // specifies output file
+            outputStream = new FileOutputStream("out.txt");
+            printWriter = new PrintWriter(outputStream);
+
+            for (int[] array : a2DArray) {
+                printWriter.println(Arrays.toString(array));
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong!");
+        } finally {
+            // printWriter will be null if something has gone wrong
+            if (printWriter != null) {
+                System.out.println("Written to out.txt.");
+                printWriter.close();
+            }
+        }
+    }
+
 }
