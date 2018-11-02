@@ -331,4 +331,53 @@ public class Files {
         }
     }
 
+    /**
+     * Writes information on three DVDs to dvdCollection.txt. User can use readFromFile to read data.
+     */
+    void storeDVDInfo() {
+        DVD dvd1 = new DVD("test1", "dir", 90, 5);
+        DVD dvd2 = new DVD("test2", "dir", 90, 10);
+        DVD dvd3 = new DVD("test3", "dir", 90, 15);
+
+        DVD[] dvdCollection = new DVD[]{
+                dvd1, dvd2, dvd3
+        };
+
+        // setting up file writer
+        FileOutputStream outputStream;
+        PrintWriter printWriter = null;
+
+        try {
+            // specifies output file
+            outputStream = new FileOutputStream("dvdCollection.txt");
+            printWriter = new PrintWriter(outputStream);
+
+
+            String title;
+            String director;
+            String runTime;
+            String cost;
+            for (DVD dvd : dvdCollection) {
+                title = "\nTitle: " + dvd.getTitle();
+                director = "\nDirector: " + dvd.getDirector();
+                runTime = "\nRun time: " + dvd.getRunTime() + "minutes";
+                cost = "\nCost: £" + dvd.getCost();
+                printWriter.println(title);
+                printWriter.println(director);
+                printWriter.println(runTime);
+                printWriter.println(cost);
+                printWriter.println();
+            }
+
+        } catch (IOException e) { // in case something goes wrong
+            System.out.println("Something has gone wrong!");
+        } finally {
+            // printWriter will be null if something has gone wrong
+            if (printWriter != null) {
+                System.out.println("Written to dvdCollection.txt.");
+                printWriter.close();
+            }
+        }
+    }
+
 }
