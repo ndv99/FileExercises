@@ -349,7 +349,7 @@ public class Files {
 
         try {
             // specifies output file
-            outputStream = new FileOutputStream("dvdCollection.txt");
+            outputStream = new FileOutputStream("src/dvdCollection.txt");
             printWriter = new PrintWriter(outputStream);
 
 

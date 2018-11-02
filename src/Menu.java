@@ -33,6 +33,7 @@ public class Menu {
         System.out.println("6: Run all");
         System.out.println("7: Check if a file is readable");
         System.out.println("8: Write a 2D array to out.txt");
+        System.out.println("9: Store information on 3 test DVDs in dvdCollection.txt");
         System.out.println("0: Exit");
     }
 
@@ -46,6 +47,7 @@ public class Menu {
      * 6 - Run all the commands
      * 7 - Check if a file is readable
      * 8 - Write a 2D array to out.txt
+     * 9 - Store information on 3 test DVDs in dvdCollection.txt
      * 0 - Exit program
      */
     private void processChoice() {
@@ -86,6 +88,9 @@ public class Menu {
                     break;
                 case "8":
                     files.write2DArray();
+                    break;
+                case "9":
+                    files.storeDVDInfo();
                     break;
                 case "0": // user chooses 0
                     finished = true; // Big while loop that this is in will now break.
